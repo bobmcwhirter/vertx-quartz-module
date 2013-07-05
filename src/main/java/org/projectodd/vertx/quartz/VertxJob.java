@@ -13,11 +13,10 @@ public class VertxJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.err.println( "firing job" );
 		EventBus eventBus = (EventBus) context.getMergedJobDataMap().get( "eventBus" );
 		String address = (String) context.getMergedJobDataMap().get( "address" );
-		System.err.println( "firing job to " + address );
-		eventBus.send(address, new JsonObject() );
+		JsonObject payload = (JsonObject) context.getMergedJobDataMap().get( "payload" );
+		eventBus.send(address, payload );
 	}
 
 }
